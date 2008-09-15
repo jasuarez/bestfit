@@ -1,0 +1,15 @@
+bestfit (0.2.0-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Oskar Liljeblad <oskar@osk.mine.nu>  Mon, 23 Apr 2001 10:53:13 +0200
+
+bestfit (0.1.0-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Oskar Liljeblad <osk@hem.passagen.se>  Mon, 23 Apr 2001 10:53:13 +0200
+
+Local variables:
+mode: debian-changelog
+End:

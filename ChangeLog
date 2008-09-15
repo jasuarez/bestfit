@@ -1,0 +1,41 @@
+Mon Oct  1 18:01:44 CEST 2001	Oskar Liljeblad <oskar@osk.mine.nu>
+
+	* configure.in: Removed file.
+	* acconfig.h: Removed file.
+	* configure.ac: New file, updated for automake 1.4p4.
+	Set BUG_EMAIL, AUTHORS, COPYRIGHT in config.h.
+	Added AC_PROG_INSTALL check.
+	Added AC_HEADER_DIRENT and AC_HEADER_SYS_WAIT checks.
+	Added some more header file checks with AC_CHECK_HEADERS.
+	Added AC_TYPE_PID_T and AC_TYPE_SIZE_T checks.
+	Added function checks for fork, lstat, malloc, stat, vprintf,
+	memset, strerror, strstr and strtol.
+	Increased version to 0.2.0.
+	* src/Makefile.am: Added getopt.c, getopt1.c.
+	* src/bestfit.c: Include local getopt.h always.
+	Make use of BUG_EMAIL instead of hardcoded email address.
+	* src/getopt.c: New file.
+	* src/getopt.h: Ditto.
+	* src/getopt1.c: Ditto.
+	* src/sizescan.c: Include limits.h if possible.
+	* src/support.h: Include sys/types.h if possible.
+	* README: Updated email address to oskar@osk.mine.nu.
+	* debian/control: Ditto.
+	* debian/copyright: Ditto.
+	* AUTHORS: Ditto.
+	Added Steven Enderle under "Additional authors".
+	* debian/changelog: Added 0.2.0 log entry.
+
+Wed May 30 18:42:35 CEST 2001	Oskar Liljeblad <osk@hem.passagen.se>
+
+	* src/bestfit.c: the total block variable is now a 64 bit
+	integer, fixing problems when running bestfit on many large
+	files.
+
+Mon Apr 23 13:24:40 CEST 2001	Oskar Liljeblad <osk@hem.passagen.se>
+
+	* debian/control: Changed description to match that in the README.
+
+Mon Apr 23 10:50:02 CEST 2001	Oskar Liljeblad <osk@hem.passagen.se>
+
+	* ChangeLog, NEWS: New files.

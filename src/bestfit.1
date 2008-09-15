@@ -1,0 +1,150 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH bestfit 1 "April 23, 2001"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+bestfit \- Optimally choose files to be put on a CD (or other media)
+.SH SYNOPSIS
+.B bestfit
+.RI [ OPTION ]... " FILE"... " " [ "-e COMMAND"... ]
+.SH DESCRIPTION
+This manual page document describes the \fBbestfit\fP command.
+Bestfit is a small program to determine which files that should be put
+on a CD (or other media), so that as little space as possible is wasted.
+It is very easy to use: you specify files on the command line, and bestfit
+prints the names of those that were selected. Alternatively, bestfit
+can execute a command for each selected file (e.g. to move them to a
+different directory).
+
+This problem is also known as the 0-1 knapsack problem. The algorithm
+implemented by bestfit solves instances of it optimally in theta(n*W)
+time, where n is number of files to choose between and W the amount of
+free space. This may sound bad but since W is number of blocks and not
+bytes, this algorithm is not that inefficient. Try it yourself and see.
+
+Due to the nature of this algorithm, bestfit uses a lot of memory -
+approximately 1.5M per file specified on command line. As long as
+you have enough swap space, this is usually not a problem since
+bestfit doesn't use all at the same time.
+
+Bestfit does (at this time) not use any external program such as mkisofs
+or mkhybrid to calculate the size of files. Instead the file and directory
+sizes and rounded up towards the nearest 2048-byte multiple and added
+together. (2048 bytes is the block size on ISO images.)
+
+Bestfit can not account for all oddities with ISO images (for instance,
+there are multiple path tables, padding, etc which is not easy to
+calculate), therefore exact results can not always be produced. Bestfit
+may waste more space than necessary, or even tell you that files that
+won't fit actually fits. (I consider the latter to be a bug though.
+If you encounter it, please mail me.) In other words, manually selecting
+files and checking that they fit using mkisofs may in some cases give
+you better results than using bestfit.
+.SH OPTIONS
+These programs follow the usual GNU command line syntax, with long
+options starting with two dashes (`-').
+A summary of options is included below.
+.TP
+.B \-8, \-\-80min
+Space is that of an empty 80 min CD. This is the default.
+.TP
+.B \-7, \-\-74min
+Space is that of an empty 74 min CD.
+.TP
+.B \-d, \-\-dirs-only
+Ignore all non-directory arguments. (This is useful when including
+files using wildcard/glob patterns.)
+.TP
+.B \-s, \-\-space=BLOCKS
+The maximum amount of space allowed to use, in blocks.
+.TP
+.B \-r, \-\-reserve=BLOCKS
+The number of blocks to reserve (usually 200 by default). This
+value is simple substracted from the space value before the
+algorithm is started.
+.TP
+.B \-e, \-\-execute COMMAND...
+Execute a command for each selected file, instead of printing
+the name on screen. All following arguments after --execute (or -e) are
+taken to be arguments to the command to execute for each selected
+file. The string `{}' is replaced by the current file name being
+processed, and can be used multiple times.
+
+If --invert is used as well as --execute, the command is executed
+for files that weren't selected instead.
+.TP
+.B \-i, \-\-invert
+Print names of those files that weren't selected (i.e. did not fitting)
+instead.
+.TP
+.B \-v, \-\-verbose
+Explain what is being done.
+.TP
+.B \-q, \-\-quiet
+Output no diagnostic/information messages. (Error messages are still
+printed.)
+.TP
+.B \-h, \-\-help
+Show summary of options.
+.TP
+.B \-v, \-\-version
+Output version information and exit.
+.SH EXAMPLES
+Assume we want burn the following directories on a CD:
+
+  /store/dir1	40M
+  /store/dir2	67M
+  /store/dir3	38M
+  /store/dir4	112M
+  /store/dir5	130M
+  /store/dir6	82M
+  /store/dir7	240M
+  /store/dir8	56M
+  /store/dir9	94M
+
+These files won't fit on an 80 min CD so we need to burn them on two.
+We can have bestfit determine which files to burn on the first CD:
+
+  $ bestfit /store/dir* 
+  /store/dir2
+  /store/dir4
+  /store/dir5
+  /store/dir7
+  /store/dir8
+  /store/dir9
+  used 357888 of 439808 blocks (699.0M of 859.0M)
+  wasted 1912 of 359800 blocks (3.7M of 702.7M)
+
+Now maybe we want to move these files to another directory. bestfit
+can do this too:
+
+  $ bestfit /store/dir* -e mv -i {} /store/to-burn/
+  used 357888 of 439808 blocks (699.0M of 859.0M)
+  wasted 1912 of 359800 blocks (3.7M of 702.7M)
+  $ ls /store/to-burn/foo
+  /store/dir2
+  /store/dir4
+  /store/dir5
+  /store/dir7
+  /store/dir8
+  /store/dir9
+
+The -i option was added to make move interactive, so that
+we won't overwrite files by mistake. Note that we don't need
+to terminate bestfit's options using --, because -e stops
+bestfit from reading further options.
+.SH AUTHOR
+bestfit was written by Oskar Liljeblad <oskar@osk.mine.nu>.

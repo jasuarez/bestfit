@@ -1,0 +1,20 @@
+This document describes some things that I have planned for bestfit,
+and may or may not implement in the future.
+
+rewrite knapsack.c to use less memory...
+
+internationalization
+
+-u, --unit-size=SPEC
+  smallest unit size - larger speeds up algorithm (>= DEFAULT_BLOCK_SIZE)
+  default is one block (DEFAULT_BLOCK_SIZE)
+
+--block-size=SPEC
+  support for changable blocksize?
+  this affects --unit-size, --space (is 'bl' unit)
+
+support values for --block-size, --space, --unit-size a la GNU fileutils blocksize?
+  also for output ("xxx M");
+  see: info "File utilities" "Common options" "Block size"
+
+find better name for some options, such as --space.

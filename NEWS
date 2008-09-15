@@ -1,0 +1,13 @@
+2001-10-01
+
+The total block variable is now 64 bits, fixing possible
+overflow problems.
+The author has changed email-address to oskar@osk.mine.nu.
+Added patch from Steven Enderle to add support for FreeBSD.
+Updated to automake 1.4p4.
+
+2001-04-23
+
+First public release (0.1.0).
+
+-

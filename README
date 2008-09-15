@@ -1,0 +1,111 @@
+bestfit - Overview
+==================
+
+Bestfit is a small program to determine which files that should be put
+on a CD (or other media), so that as little space as possible is wasted.
+It is very easy to use: you specify files on the command line, and bestfit
+prints the names of those that were selected. Alternatively, bestfit
+can execute a command for each selected file (e.g. to move them to a
+different directory).
+
+This problem is also known as the 0-1 knapsack problem. The algorithm
+implemented by bestfit solves instances of it optimally in theta(n*W)
+time, where n is number of files to choose between and W the amount of
+free space. This may sound bad but since W is number of blocks and not
+bytes, this algorithm is not that inefficient. Try it yourself and see.
+
+Due to the nature of this algorithm, bestfit uses a lot of memory -
+approximately 1.5M per file specified on command line. As long as
+you have enough swap space, this is usually not a problem since
+bestfit doesn't use all at the same time.
+
+Bestfit does (at this time) not use any external program such as mkisofs
+or mkhybrid to calculate the size of files. Instead the file and directory
+sizes and rounded up towards the nearest 2048-byte multiple and added
+together. (2048 bytes is the block size on ISO images.)
+
+Bestfit can not account for all oddities with ISO images (for instance,
+there are multiple path tables, padding, etc which is not easy to
+calculate), therefore exact results can not always be produced. Bestfit
+may waste more space than necessary, or even tell you that files that
+won't fit actually fits. (I consider the latter to be a bug though.
+If you encounter it, please mail me.) In other words, manually selecting
+files and checking that they fit using mkisofs may in some cases give
+you better results than using bestfit.
+
+License
+=======
+
+Bestfit is copyright (C) 2001  Oskar Liljeblad
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+Requirements
+============
+
+* GNU libc 2.0 or later
+  Bestfit uses some GNU extensions of libc (such as getopt_long).
+
+Installation
+============
+
+Compile bestfit by running `configure' and then `make'.
+This should produce an executable `bestfit' in the src
+directory, which can be used right away.
+
+If you would like to install bestfit on your system, run
+`make install'. This will copy the executable and the man page
+`bestfit.1' into the appropriate directories (usually
+/usr/local/bin and /usr/local/share/man/man1, respecively).
+
+For further details regarding configure and the make directives,
+see the INSTALL file.
+
+Usage and Examples
+==================
+
+Run `bestfit --help' to display a list of options, or
+see the man page (`man ./docs/bestfit.1'). The man page
+also contains some examples on how to use bestfit.
+
+Known bugs
+==========
+
+None at the moment.
+
+Possible things to do
+=====================
+
+See the TODO file.
+
+Author and Feedback
+===================
+
+The author of bestfit and this document, Oskar Liljeblad,
+can be reached via email address
+
+  oskar@osk.mine.nu
+  
+Please send bug reports, suggestions, ideas or comments
+in general to me.
+
+Homepage
+========
+
+The latest version of bestfit can be downloaded from
+
+  http://www.student.lu.se/~nbi98oli/
+
+-

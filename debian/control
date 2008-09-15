@@ -1,0 +1,17 @@
+Source: bestfit
+Section: utils
+Priority: optional
+Maintainer: Oskar Liljeblad <oskar@osk.mine.nu>
+Build-Depends: debhelper (>> 3.0.0), autoconf, automake
+Standards-Version: 3.5.2
+
+Package: bestfit
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: Optimally choose files to be put on a CD (or other media)
+ Bestfit is a small program to determine which files that should be put
+ on a CD (or other media), so that as little space as possible is wasted.
+ It is very easy to use: you specify files on the command line, and bestfit
+ prints the names of those that were selected. Alternatively, bestfit
+ can execute a command for each selected file (e.g. to move them to a
+ different directory).
