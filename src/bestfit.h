@@ -23,6 +23,10 @@
 #define ISO_BLOCKS_74_MIN_CD	333000
 /* Number of 2048 byte block on a 80-min CD */
 #define ISO_BLOCKS_80_MIN_CD	360000
+/* Number of 2048 byte block on a 4,7 GB Single Layer DVD */
+#define ISO_BLOCKS_DVD_SL	2295104
+/* Number of 2048 byte block on a 8,5 GB Double Layer DVD */
+#define ISO_BLOCKS_DVD_DL	4171712
 /* Default number of blocks to reserve on CDs */
 #define DEFAULT_RESERVED_BLOCKS 200
 /* The default (and unmodifyable) block size */

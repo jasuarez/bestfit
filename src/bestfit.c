@@ -64,6 +64,8 @@ or if --execute specified, execute a command for each.\n\
 \n\
   -8, --80min               space is that of an empty 80 min CD (default)\n\
   -7, --74min               space is that of an empty 74 min CD\n\
+  -5, --sldvd               space is that of an empty 4,7 GB DVD \n\
+  -9, --dldvd               space is that of an empty 8,5 GB DVD \n\
   -d, --dirs-only           ignore non-directory arguments\n\
   -s, --space=BLOCKS        maximum amount of space allowed to use\n\
   -r, --reserve=BLOCKS      blocks to reserve (%d by default)\n\
@@ -89,6 +91,8 @@ static void execute_command(char *file, char **argv);
 static struct option long_options[] = {
     { "80min",	    	no_argument,	    NULL, '8' },
     { "74min",	    	no_argument,	    NULL, '7' },
+    { "sldvd",	    	no_argument,	    NULL, '5' },
+    { "dldvd",	    	no_argument,	    NULL, '9' },
     { "dirs-only",   	no_argument,	    NULL, 'd' },
     { "space",          required_argument,  NULL, 's' },
     { "reserve",    	required_argument,  NULL, 'r' },
@@ -202,7 +206,7 @@ main (int argc, char **argv)
 
     while (TRUE) {
     	int option_index = 0;
-	i = getopt_long(argc, argv, "-87dqver:s:", long_options, &option_index);
+	i = getopt_long(argc, argv, "-8759dqver:s:", long_options, &option_index);
     	if (i == EOF)
 	    break;
 
@@ -218,11 +222,19 @@ main (int argc, char **argv)
     	switch (i) {
 	case '8': /* --80min */
 	    space = ISO_BLOCKS_80_MIN_CD;
-	    break; 
+	    break;
 
 	case '7': /* --74min */
 	    space = ISO_BLOCKS_74_MIN_CD;
-	    break; 
+	    break;
+	
+	case '5': /* --4,7 GB DVD */
+	    space = ISO_BLOCKS_DVD_SL;
+	    break;
+
+	case '9': /* --8,5 GB DVD */
+	    space = ISO_BLOCKS_DVD_DL;
+	    break;
 
     	case 'd': /* --dirs-only */
 	    directories_only = TRUE;
