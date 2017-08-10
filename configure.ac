@@ -49,15 +49,6 @@ AC_FUNC_STAT
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([memset strerror strstr strtol])
 
-# Handle --enable/disable-debug (disable debugging symbols by default)
-AC_ARG_ENABLE(debug, [  --enable-debug          Add debugging symbols to executables], [
-  if test "x$enable_debug" != "xyes"; then
-    CFLAGS=`echo $CFLAGS|sed 's/-g//g'`
-  else
-    CFLAGS=`echo $CFLAGS|sed 's/-O2//g'`
-  fi
-],[CFLAGS=`echo $CFLAGS|sed 's/-g//g'`])
-
 # Add -Wall to CFLAGS and clean it up
 CFLAGS=`echo $CFLAGS -Wall|sed 's/^\ *//g;s/\ *$//g'`
 
