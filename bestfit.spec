@@ -1,6 +1,6 @@
 Name:		bestfit
 Version:	0.2.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Optimally choose files to be put on a CD (or other media)
 
 Group:	Other
@@ -8,6 +8,7 @@ License:	GPLv2
 URL:		http://www.student.lu.se/~nbi98oli/
 Source:  bestfit-0.2.0.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires:	gcc
 
 %description
 Bestfit is a small program to determine which files that should be put
